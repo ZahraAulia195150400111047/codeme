@@ -40,6 +40,7 @@ class Home extends CI_Controller
     $data['user'] = $this->getSession();
     $data['users'] = $this->getUsers();
     $data['posts'] = $this->post_model->all();
+    $data['myPosts'] = $this->post_model->my();
     $data['replies'] = $this->reply_model->all();
     $this->load->view('layouts/header', $data);
     $this->load->view('layouts/sidebar');

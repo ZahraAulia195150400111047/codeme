@@ -30,8 +30,25 @@ class Post extends CI_Controller
 		$this->sessionIsSet();
 
 		$data['title'] = 'Dashboard | All Post';
+		$data['header'] = 'All Post';
 		$data['user'] = $this->getSession();
 		$data['posts'] = $this->post_model->all();
+		$this->load->view('layouts/header', $data);
+		$this->load->view('layouts/sidebar');
+		$this->load->view('layouts/top', $data);
+		$this->load->view('posts', $data);
+		$this->load->view('layouts/bottom');
+		$this->load->view('layouts/footer');
+	}
+
+	public function my()
+	{
+		$this->sessionIsSet();
+
+		$data['title'] = 'Dashboard | My Post';
+		$data['header'] = 'My Posts';
+		$data['user'] = $this->getSession();
+		$data['posts'] = $this->post_model->my();
 		$this->load->view('layouts/header', $data);
 		$this->load->view('layouts/sidebar');
 		$this->load->view('layouts/top', $data);
@@ -60,7 +77,7 @@ class Post extends CI_Controller
 	public function create()
 	{
 		$this->sessionIsSet();
-		if($this->getSession()['role'] != 1) {
+		if ($this->getSession()['role'] != 1) {
 			return redirect(base_url('post'));
 		}
 
@@ -89,6 +106,7 @@ class Post extends CI_Controller
 			$data = array(
 				'user_id' => $this->input->post('user_id'),
 				'title' => $this->input->post('title'),
+				'category' => $this->input->post('category'),
 				'body' => $this->input->post('body'),
 				'created_at' => date('Y-m-d H:i:s'),
 				'updated_at' => date('Y-m-d H:i:s'),
@@ -130,6 +148,7 @@ class Post extends CI_Controller
 			$id = $this->input->post('id');
 			$data = array(
 				'title' => $this->input->post('title'),
+				'category' => $this->input->post('category'),
 				'body' => $this->input->post('body'),
 				'updated_at' => date('Y-m-d H:i:s'),
 			);

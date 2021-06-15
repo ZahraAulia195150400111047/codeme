@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 14 Bulan Mei 2020 pada 13.03
--- Versi server: 10.4.11-MariaDB
--- Versi PHP: 7.4.3
+-- Host: localhost
+-- Generation Time: Jun 05, 2021 at 03:15 PM
+-- Server version: 5.7.24
+-- PHP Version: 7.4.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,29 +24,31 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `posts`
+-- Table structure for table `posts`
 --
 
 CREATE TABLE `posts` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
+  `category` varchar(255) DEFAULT NULL,
   `body` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `posts`
+-- Dumping data for table `posts`
 --
 
-INSERT INTO `posts` (`id`, `user_id`, `title`, `body`, `created_at`, `updated_at`) VALUES
-(1, 2, 'Solve The Arithmatic Operation', '<p>How do it works?</p>\r\n<pre>int x = 5 : 4;</pre>', '2020-05-13 13:12:25', '2020-05-13 13:12:25');
+INSERT INTO `posts` (`id`, `user_id`, `title`, `category`, `body`, `created_at`, `updated_at`) VALUES
+(1, 2, 'Solve The Arithmatic Operation', NULL, '<p>How do it works?</p>\r\n<pre>int x = 5 : 4;</pre>', '2020-05-13 13:12:25', '2020-05-13 13:12:25'),
+(2, 1, 'Zahra Cantik', 'PHP', '<p>Ini gimana ko gabisaa..</p>\r\n<p><code>public static void main(String args[]) {</code></p>\r\n<p><code>&nbsp;&nbsp;&nbsp; Scanner s = new Scanner(System.in);</code></p>\r\n<p><code>&nbsp;&nbsp;&nbsp; String str = s.nextLine();</code></p>\r\n<p><code>}</code></p>', '2021-05-22 19:49:25', '2021-06-05 08:13:46');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `replies`
+-- Table structure for table `replies`
 --
 
 CREATE TABLE `replies` (
@@ -56,20 +57,21 @@ CREATE TABLE `replies` (
   `post_id` int(11) NOT NULL,
   `reply` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `replies`
+-- Dumping data for table `replies`
 --
 
 INSERT INTO `replies` (`id`, `user_id`, `post_id`, `reply`, `created_at`, `updated_at`) VALUES
-(15, 1, 1, '<p>You have to use slash to divide, then your code should be like this</p>\r\n<div><code>int x = 5 / 4;</code><br /><br />thank me later</div>', '2020-05-13 13:15:56', '2020-05-13 13:16:45');
+(15, 1, 1, '<p>You have to use slash to divide, then your code should be like this</p>\r\n<div><code>int x = 5 / 4;</code><br /><br />thank me later</div>', '2020-05-13 13:15:56', '2020-05-13 13:16:45'),
+(17, 1, 2, '<p>Ya gitu...</p>', '2021-05-22 19:49:40', '2021-05-22 19:49:40');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -77,31 +79,30 @@ CREATE TABLE `users` (
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` int(11) NOT NULL DEFAULT 2
+  `role` int(11) NOT NULL DEFAULT '2'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`) VALUES
-(1, 'Zahra', 'zahra@gmail.com', '1ac5012170b65fb99f171ad799d045ac', 1),
-(2, 'Atika', 'atika@gmail.com', '1ac5012170b65fb99f171ad799d045ac', 2),
-(3, 'Yunita', 'yunita@gmail.com', '1ac5012170b65fb99f171ad799d045ac', 1);
+(1, 'Farhan', 'farhan@codeiva.com', '1ac5012170b65fb99f171ad799d045ac', 1),
+(2, 'Farhan 2', 'farhan2@codeiva.com', '1ac5012170b65fb99f171ad799d045ac', 2);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `posts`
+-- Indexes for table `posts`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`),
   ADD KEY `posts_user_id_foreign` (`user_id`);
 
 --
--- Indeks untuk tabel `replies`
+-- Indexes for table `replies`
 --
 ALTER TABLE `replies`
   ADD PRIMARY KEY (`id`),
@@ -109,45 +110,45 @@ ALTER TABLE `replies`
   ADD KEY `comments_article_id_foreign` (`post_id`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `posts`
+-- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `replies`
+-- AUTO_INCREMENT for table `replies`
 --
 ALTER TABLE `replies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `posts`
+-- Constraints for table `posts`
 --
 ALTER TABLE `posts`
   ADD CONSTRAINT `posts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `replies`
+-- Constraints for table `replies`
 --
 ALTER TABLE `replies`
   ADD CONSTRAINT `comments_article_id_foreign` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE,

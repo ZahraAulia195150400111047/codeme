@@ -16,10 +16,14 @@
 					<?php echo form_error('title', '<small class="text-danger pl-3">', '</small>'); ?>
 				</div>
 				<div class="form-group">
+					<input type="text" value="<?php echo $post['category']; ?>" name="category" placeholder="Category" class="form-control form-control-user">
+					<?php echo form_error('category', '<small class="text-danger pl-3">', '</small>'); ?>
+				</div>
+				<div class="form-group">
 					<textarea type="text" id="body" name="body" placeholder="Post Content" class="form-control form-control-user"><?php echo $post['body']; ?></textarea>
 					<?php echo form_error('body', '<small class="text-danger pl-3">', '</small>'); ?>
 				</div>
-				<button class="btn btn-primary btn-user btn-block" type="submit">Post</button>
+				<button class="btn btn-primary btn-user btn-block" type="submit">Update</button>
 			</form>
 		</div>
 	</div>
